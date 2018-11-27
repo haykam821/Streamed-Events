@@ -51,7 +51,7 @@ function readArray(array) {
 				}
 			}
 		}
-	}
+	};
 
 	// Instantly resume
 	setImmediate(stream.resume);
@@ -74,8 +74,8 @@ function writeArray(done) {
 	}
 
 	const stream = new Stream();
-	stream.writable = true
-	stream.readable = false
+	stream.writable = true;
+	stream.readable = false;
 
 	const array = [];
 
@@ -135,12 +135,12 @@ function concat(...streamsRaw) {
 
 	mergedStream.write = data => {
 		mergedStream.emit("data", data);
-	}
+	};
 	mergedStream.destroy = () => {
 		streams.forEach(stream => {
 			stream.destroy && stream.destroy();
 		});
-	}
+	};
 
 	return mergedStream;
 }
@@ -204,7 +204,7 @@ function readable(func, continueOnError) {
 
 	function get(err, data) {
 		if (err) {
-			stream.emit('error', err)
+			stream.emit('error', err);
 			if (!continueOnError) {
 				stream.emit("end");
 			}
@@ -217,7 +217,7 @@ function readable(func, continueOnError) {
 				try {
 					reading = true;
 					func.call(stream, i++, () => {
-						reading = false
+						reading = false;
 						get.apply(null, arguments);
 					});
 				} catch (error) {
@@ -228,7 +228,7 @@ function readable(func, continueOnError) {
 	}
 
 	stream.resume = () => {
-		paused = false
+		paused = false;
 		get();
 	};
 	setImmediate(stream.resume);
@@ -283,7 +283,7 @@ module.exports.mapSync = mapSync;
 function filterSync(test) {
 	return through(function (data) {
 		if (test(data)) {
-			this.queue(data)
+			this.queue(data);
 		}
 	});
 }
@@ -309,7 +309,7 @@ function parse(options) {
 		let obj;
 		try {
 			if (data) {
-				console.log(data.toString())
+				console.log(data.toString());
 				obj = JSON.parse(data.toString());
 			}
 		} catch (error) {
@@ -322,7 +322,7 @@ function parse(options) {
 		if (obj !== undefined) {
 			this.emit("data", obj);
 		}
-	})
+	});
 }
 module.exports.parse = parse;
 
