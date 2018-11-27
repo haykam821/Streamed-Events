@@ -149,7 +149,7 @@ module.exports.concat = module.exports.merge = concat;
 function join(string) {
 	// Legacy API
 	if (typeof string === "function") {
-		return wait(str);
+		return wait(string);
 	}
 
 	let first = true;
@@ -248,7 +248,6 @@ module.exports.readable = readable;
 
 function log(name) {
 	return through(function (data) {
-		const args = [].slice.call(arguments);
 		if (name) {
 			console.error(name, data);
 		} else {
@@ -259,8 +258,8 @@ function log(name) {
 }
 module.exports.log = log;
 
-function child(child) {
-	return duplex(child.stdin, child.stdout);
+function child(thing) {
+	return duplex(thing.stdin, thing.stdout);
 }
 module.exports.child = child;
 
@@ -328,7 +327,7 @@ module.exports.parse = parse;
 
 function stringify() {
 	return mapSync(data => {
-		return JSON.stringify(Buffer.isBuffer(data) ? e.toString() : data) + "\n";
+		return JSON.stringify(Buffer.isBuffer(data) ? data.toString() : data) + "\n";
 	});
 }
 module.exports.stringify = stringify;
