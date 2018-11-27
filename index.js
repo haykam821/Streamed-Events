@@ -157,7 +157,7 @@ function join(string) {
 		// This will only happen on first write
 		if (!first) {
 			this.emit("data", string);
-		};
+		}
 		first = false;
 
 		this.emit("data", data);
@@ -204,12 +204,12 @@ function readable(func, continueOnError) {
 
 	function get(err, data) {
 		if (err) {
-			stream.emit('error', err);
+			stream.emit("error", err);
 			if (!continueOnError) {
 				stream.emit("end");
 			}
 		} else if (arguments.length > 1) {
-			stream.emit('data', data);
+			stream.emit("data", data);
 		}
 
 		setImmediate(() => {
@@ -243,7 +243,7 @@ function readable(func, continueOnError) {
 	};
 
 	return stream;
-};
+}
 module.exports.readable = readable;
 
 function log(name) {
@@ -274,7 +274,7 @@ function mapSync(sync) {
 		}
 
 		if (mappedData !== undefined) {
-			this.emit('data', mappedData);
+			this.emit("data", mappedData);
 		}
 	});
 }
@@ -328,12 +328,12 @@ module.exports.parse = parse;
 
 function stringify() {
 	return mapSync(data => {
-		return JSON.stringify(Buffer.isBuffer(data) ? e.toString() : data) + '\n';
+		return JSON.stringify(Buffer.isBuffer(data) ? e.toString() : data) + "\n";
 	});
 }
 module.exports.stringify = stringify;
 
-function replace(from, to) {
-	return pipeline(split(from), join(to));
+function replace(substr, newSubstr) {
+	return pipeline(split(substr), join(newSubstr));
 }
 module.exports.replace = replace;
