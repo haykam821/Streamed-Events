@@ -24,5 +24,14 @@
 	"bugs": {
 		"url": "https://github.com/haykam821/Streamed-Events/issues"
 	},
-	"homepage": "https://github.com/haykam821/Streamed-Events#readme"
+	"homepage": "https://github.com/haykam821/Streamed-Events#readme",
+	"dependencies": {
+		"duplexer": "^0.1.1",
+		"from": "^0.1.7",
+		"map-stream": "0.0.7",
+		"pause-stream": "0.0.11",
+		"split": "^1.0.1",
+		"stream-combiner": "^0.2.2",
+		"through": "^2.3.8"
+	}
 }
