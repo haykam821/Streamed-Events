@@ -118,7 +118,7 @@ function concat(...streamsRaw) {
 	if (streams.length > 0) {
 		streams.forEach(stream => {
 			stream.pipe(mergedStream, {
-				end: false
+				end: false,
 			});
 
 			stream.on("end", () => {
@@ -170,7 +170,7 @@ function wait(callback) {
 	const chunks = [];
 	return through(data => {
 		chunks.push(data);
-	}, function () {
+	}, function() {
 		const body = Buffer.isBuffer(chunks[0]) ? Buffer.concat(chunks) : chunks.join("");
 
 		this.emit("data", body);
@@ -247,7 +247,7 @@ function readable(func, continueOnError) {
 module.exports.readable = readable;
 
 function log(name) {
-	return through(function (data) {
+	return through(function(data) {
 		if (name) {
 			console.error(name, data);
 		} else {
@@ -264,7 +264,7 @@ function child(thing) {
 module.exports.child = child;
 
 function mapSync(sync) {
-	return through(function (data) {
+	return through(function(data) {
 		let mappedData;
 		try {
 			mappedData = sync(data);
@@ -280,7 +280,7 @@ function mapSync(sync) {
 module.exports.mapSync = mapSync;
 
 function filterSync(test) {
-	return through(function (data) {
+	return through(function(data) {
 		if (test(data)) {
 			this.queue(data);
 		}
@@ -289,7 +289,7 @@ function filterSync(test) {
 module.exports.filterSync = filterSync;
 
 function flatmapSync(mapper) {
-	return through(function (data) {
+	return through(function(data) {
 		const that = this;
 		data.forEach(each => {
 			that.queue(mapper(each));
@@ -304,7 +304,7 @@ function parse(options) {
 		...options,
 	};
 
-	return through(function (data) {
+	return through(function(data) {
 		let obj;
 		try {
 			if (data) {
