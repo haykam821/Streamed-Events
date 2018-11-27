@@ -216,9 +216,9 @@ function readable(func, continueOnError) {
 			if (!(ended || paused || reading)) {
 				try {
 					reading = true;
-					func.call(stream, i++, () => {
+					func.call(stream, i++, ...arguments => {
 						reading = false;
-						get.apply(null, arguments);
+						get.apply(null, ...arguments);
 					});
 				} catch (error) {
 					stream.emit("error", error);
