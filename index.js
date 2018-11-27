@@ -31,7 +31,7 @@ function readArray(array) {
 	stream.writable = false;
 
 	if (!Array.isArray(array)) {
-		throw new Error("readArray expects an array.");
+		throw new TypeError("readArray expects an array.");
 	}
 
 	let index = 0;
@@ -43,7 +43,7 @@ function readArray(array) {
 			paused = false;
 
 			while (index <= length && !paused && !ended) {
-				stream.emit("data", array[i++]);
+				stream.emit("data", array[index++]);
 				if (index === length) {
 					ended = true;
 					stream.readable = false;
@@ -70,7 +70,7 @@ module.exports.readArray = readArray;
 
 function writeArray(done) {
 	if (typeof done !== "function") {
-		throw new Error("writeArray must be provided with a callback.");
+		throw new TypeError("writeArray must be provided with a callback.");
 	}
 
 	const stream = new Stream();
@@ -103,7 +103,7 @@ function concat(...streamsRaw) {
 	const streams = Array.isArray(streamsRaw[0]) ? streamsRaw[0] : streamsRaw;
 
 	if (!streams.every(thing => thing instanceof Stream)) {
-		throw new Error("concat's parameters must be streams.");
+		throw new TypeError("concat's parameters must be streams.");
 	}
 
 	const mergedStream = new Stream();
@@ -195,7 +195,7 @@ function readable(func, continueOnError) {
 	stream.writable = false;
 
 	if (typeof func !== "function") {
-		throw new Error("readable expects an async function.");
+		throw new TypeError("readable expects an async function.");
 	}
 
 	stream.on("end", () => {
