@@ -20,6 +20,8 @@ module.exports.pause = pause;
 module.exports.split = split;
 module.exports.pipeline = module.exports.connect = module.exports.pipe = pipeline;
 
+const util = require("./util.js");
+
 function readArray(array) {
 	const stream = new Stream();
 
@@ -334,5 +336,16 @@ module.exports.stringify = stringify;
 
 function replace(substr, newSubstr) {
 	return pipeline(split(substr), join(newSubstr));
+}
+module.exports.replace = replace;
+
+function reduce(func, initialAccumulator) {
+	let accumulator = initialAccumulator;
+
+	return through(data => {
+		accumulator = func(accumulator, data);
+	}, function () {
+		util.finalData(this, accumulator);
+	});
 }
 module.exports.replace = replace;
