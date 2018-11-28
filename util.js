@@ -1,5 +1,5 @@
 function finalData(stream, data) {
 	stream.emit("data", data);
-	stream.emit(end);
+	stream.emit("end");
 }
 module.exports.finalData = finalData;

@@ -348,4 +348,4 @@ function reduce(func, initialAccumulator) {
 		util.finalData(this, accumulator);
 	});
 }
-module.exports.replace = replace;
+module.exports.reduce = reduce;
